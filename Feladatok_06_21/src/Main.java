@@ -19,7 +19,7 @@ public class Main {
         {
             for (int j=0; j<szo2.length; j++)
             {
-                
+
             }
         }
 
