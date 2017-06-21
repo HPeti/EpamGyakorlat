@@ -1,3 +1,8 @@
+import com.sun.xml.internal.fastinfoset.util.CharArray;
+
+import java.util.Random;
+import java.util.Scanner;
+
 /**
  * Created by Student on 6/21/2017.
  */
@@ -23,11 +28,11 @@ public class Main {
                 }
                 if(j== szo2.length-1 && volt==false)
                 {
-                    return "nem az";
+                    return "A szavak nem anagrammák egymásnak";
                 }
             }
         }
-        return "az";
+        return "A szavak anagrammák egymásnak";
     }
     public static void fibonacci(int szam) {
         int [] sorozat= new int[szam];
@@ -66,18 +71,28 @@ public class Main {
     }
     public static void main(String [] args)
     {
+        Scanner scan=new Scanner(System.in);
         System.out.println("Feladat 1: anagramma");
-        String szo1="abc";
-        String szo2="abcd";
-        System.out.println(szo1+" "+szo2);
+        System.out.print("\nAdd meg az első szöveget: ");
+        String szo1=scan.nextLine();
+        System.out.print("\nAdd meg az második szöveget: ");
+        String szo2=scan.nextLine();
         System.out.println(anagramma(szo1,szo2));
 
         System.out.println("Feladat 2: fibonacci");
-        fibonacci(10);
+        System.out.print("\nAdd meg a számsorozat hosszát:");
+        fibonacci(Integer.parseInt(scan.nextLine()));
         System.out.print("\n");
 
         System.out.println("Feladat 3: Megfordítás");
-        int [] tomb={0,1,2,3};
+        System.out.print("\nAdd meg a számsorozat hosszát: ");
+        int hossz=Integer.parseInt(scan.nextLine());
+        int [] tomb=new int [hossz];
+        Random r=new Random();
+        for (int i=0; i < tomb.length;i++)
+        {
+            tomb[i]=r.nextInt(10)+1;
+        }
         megfordit(tomb);
     }
 }
