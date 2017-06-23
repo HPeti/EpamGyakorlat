@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -6,63 +7,73 @@ import java.util.List;
  */
 public class Calculator {
     public static void calc(String kifejezes) {
-        List<String> lista = Arrays.asList(kifejezes.split(" "));
-        String eredmeny="";
-        int muvelet=0;
-        for (String item : lista)
+        ArrayList<Integer> numbers=new ArrayList<Integer>();
+        ArrayList<String> operations=new ArrayList<String>();
+        int operationNumber = 0;
+        if(kifejezes.length()==0)
         {
-            if(!Character.isDigit(item.charAt(0)));
-            {
-                muvelet++;
-            }
+            System.out.println("Nem adtál meg semmit");
         }
-        for (String item : lista) {
-            int temp=0;
-            int index=lista.indexOf(item);
-            if (Character.isDigit(item.charAt(0)) && item != null) {
-
-            } else {
-                switch (item) {
-                    case "+": {
-                        temp=Integer.parseInt(lista.get(index-1))+Integer.parseInt(lista.get(index+1));
-                        lista.set(index-1,Integer.toString(temp));
-                        lista.set(index,Integer.toString(temp));
-                        lista.set(index+1,Integer.toString(temp));
-                        break;
-                    }
-                    case "-": {
-                        temp=Integer.parseInt(lista.get(index-1))-Integer.parseInt(lista.get(index+1));
-                        lista.set(index-1,Integer.toString(temp));
-                        lista.set(index,Integer.toString(temp));
-                        lista.set(index+1,Integer.toString(temp));
-                        break;
-                    }
-                    case "*": {
-                        temp=Integer.parseInt(lista.get(index-1))*Integer.parseInt(lista.get(index+1));
-                        lista.set(index-1,Integer.toString(temp));
-                        lista.set(index,Integer.toString(temp));
-                        lista.set(index+1,Integer.toString(temp));
-                        break;
-                    }
-                    case "/": {
-                        temp=Integer.parseInt(lista.get(index-1))/Integer.parseInt(lista.get(index+1));
-                        lista.set(index-1,Integer.toString(temp));
-                        lista.set(index,Integer.toString(temp));
-                        lista.set(index+1,Integer.toString(temp));
-                        break;
-                    }
-                }
-            }
-            muvelet--;
-            if(muvelet==0)
-            {
-                eredmeny=item;
-            }
-        }
-        for (String item: lista)
+        for( int i=0; i<kifejezes.length(); i++ )
         {
-            System.out.print(item+" ");
+            if( kifejezes.charAt(i) == '/'||kifejezes.charAt(i) == '*' || kifejezes.charAt(i) == '-' || kifejezes.charAt(i) == '+' )
+            {
+                operationNumber++;
+                operations.add(Character.toString(kifejezes.charAt(i)));
+            }
         }
-        System.out.println("\n"+eredmeny);
+        for (int i=0;i<operationNumber+1;i++)
+        {
+            if (!Character.isDigit(kifejezes.toCharArray()[0]))
+            {
+                System.out.println("Nem müvelet!");
+            }
+            else
+            {
+                numbers.add(Integer.parseInt(kifejezes.split("[/*+-]")[i]));
+            }
+        }
+        for(int i=0;i<operations.size();i++)
+        {
+            if(operations.get(i).equals("/")&& numbers.size()!=1)
+            {
+                numbers.set(i,numbers.get(i)/numbers.get(i+1));
+                numbers.remove(i+1);
+                operations.remove(i);
+                i--;
+            }
+            else if(operations.get(i).equals("*")&& numbers.size()!=1)
+            {
+                numbers.set(i,numbers.get(i)*numbers.get(i+1));
+                numbers.remove(i+1);
+                operations.remove(i);
+                i--;
+            }
+        }
+        for (int i=0;i<kifejezes.length();i++)
+        {
+            if(numbers.size()==1)
+            {
+                break;
+            }
+            if(operations.get(i).equals("-")&& numbers.size()!=1)
+            {
+                numbers.set(i,numbers.get(i)-numbers.get(i+1));
+                numbers.remove(i+1);
+                operations.remove(i);
+                i--;
+            }
+            else if(operations.get(i).equals("+")&&numbers.size()!=1)
+            {
+                numbers.set(i,numbers.get(i)+numbers.get(i+1));
+                numbers.remove(i+1);
+                operations.remove(i);
+                i--;
+            }
+        }
+        if (Character.isDigit(kifejezes.toCharArray()[0]))
+        {
+            System.out.println("Az eredmény: "+numbers.get(0));
+        }
     }
 }
