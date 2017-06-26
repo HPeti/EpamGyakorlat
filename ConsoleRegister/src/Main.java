@@ -5,23 +5,73 @@ import java.util.Scanner;
  * Created by Student on 6/26/2017.
  */
 public class Main {
+    public static boolean verifyUser(String name, String address, String email, int age, String password, String passwordVerify)
+    {
+        int nameSize = name.split(" ").length;
+        boolean emailCim=email.contains("@") && email.contains(".");
+        int addressSize = address.split(",").length;
+        if(nameSize>1 && addressSize==4 && age>0 && password.equals(passwordVerify))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static void main(String [] args)
     {
         //Todo: fájlból kiolvassa az adatbázist
-        ArrayList<User> userList= new ArrayList<>();
+        ArrayList<User> userList= new ArrayList<User>();
         Scanner scanner= new Scanner(System.in);
-        System.out.println("Add meg a végrehajtandó parancsot!");
+cycle:  while (true) {
+            System.out.println("Add meg a végrehajtandó parancsot!");
 
-        String action=scanner.nextLine().toLowerCase();
-        switch (action)
-        {
-            case "regisztráció":
-            {
-                break;
-            }
-            default:
-            {
-                break;
+            String action = scanner.nextLine().toLowerCase();
+            switch (action) {
+                case "1":
+                case "regisztráció": {
+                    System.out.print("\nAdd meg a felhasználó nevét: ");
+                    String name=scanner.nextLine();
+                    System.out.print("\nAdd meg a felhasználó címét: ");
+                    String address=scanner.nextLine();
+                    System.out.print("\nAdd meg a felhasználó e-mail címét: ");
+                    String email=scanner.nextLine();
+                    System.out.print("\nAdd meg a felhasználó életkorát: ");
+                    int age=Integer.parseInt(scanner.nextLine());
+                    System.out.print("\nAdd meg a felhasználó jelszavát: ");
+                    String password=scanner.nextLine();
+                    System.out.print("\nJelszó megerősítés: ");
+                    String passwordVerify=scanner.nextLine();
+                    if(verifyUser(name,address,email,age,password,passwordVerify))
+                    {
+                        userList.add(new User(name,address,email,age,password));
+                    }
+                    break;
+                }
+                case "2":
+                case "listázás": {
+                    break;
+                }
+                case "3":
+                case "módosítás": {
+                    break;
+                }
+                case "4":
+                case "törlés":
+                {
+
+                }
+                case "0":
+                case "kilépés":
+                {
+                    System.out.println("A program kilép...");
+                    break cycle;
+                }
+                default: {
+                    break;
+                }
             }
         }
     }
