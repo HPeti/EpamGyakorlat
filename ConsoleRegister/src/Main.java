@@ -22,11 +22,13 @@ public class Main {
 
     public static void main(String [] args)
     {
-        //Todo: fájlból kiolvassa az adatbázist
+        //Todo: fájlból kiolvassa az adatbázist; modify elkészítése metódusban
+
         ArrayList<User> userList= new ArrayList<User>();
         Scanner scanner= new Scanner(System.in);
 cycle:  while (true) {
-            System.out.println("Add meg a végrehajtandó parancsot!");
+            boolean createdUser=false;
+            System.out.println("Add meg a végrehajtandó parancsot! (regisztráció - 1, listázás - 2, módosítás - 3, törlés - 4, kilépés - 0");
 
             String action = scanner.nextLine().toLowerCase();
             switch (action) {
@@ -34,7 +36,7 @@ cycle:  while (true) {
                 case "regisztráció": {
                     System.out.print("\nAdd meg a felhasználó nevét: ");
                     String name=scanner.nextLine();
-                    System.out.print("\nAdd meg a felhasználó címét: ");
+                    System.out.print("\nAdd meg a felhasználó címét(vesszővel elválasztva!): ");
                     String address=scanner.nextLine();
                     System.out.print("\nAdd meg a felhasználó e-mail címét: ");
                     String email=scanner.nextLine();
@@ -47,11 +49,25 @@ cycle:  while (true) {
                     if(verifyUser(name,address,email,age,password,passwordVerify))
                     {
                         userList.add(new User(name,address,email,age,password));
+                        System.out.println("Új felhasználó létrehozása?(i / n)");
+                        if(scanner.nextLine().charAt(0)=='n')
+                        {
+                            createdUser=true;
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("Rossz paraméterek kerültek be");
                     }
                     break;
                 }
                 case "2":
                 case "listázás": {
+                    System.out.println("Felhasználó neve \t címe \t e-mail címe \t életkora");
+                    for (User item : userList)
+                    {
+                        System.out.println(item.getName()+ "\t"+ item.getAddress()+ "\t"+  item.getEmail()+ "\t"+  item.getAge());
+                    }
                     break;
                 }
                 case "3":
@@ -72,6 +88,10 @@ cycle:  while (true) {
                 default: {
                     break;
                 }
+            }
+            if (createdUser)
+            {
+                break cycle;
             }
         }
     }

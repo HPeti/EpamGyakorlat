@@ -1,3 +1,6 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by Student on 6/26/2017.
  */
@@ -15,6 +18,10 @@ public class User {
         this.email=email;
         this.age=age;
         this.password=password;
+    }
+    public static void modify(ArrayList<User> lista)
+    {
+
     }
     public String getName() {
         return name;
