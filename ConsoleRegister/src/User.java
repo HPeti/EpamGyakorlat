@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,110 +11,141 @@ public class User {
     private int age;
     private String password;
 
-    public User(String name, String address, String email, int age, String password)
-    {
-        this.name=name;
-        this.address=address;
-        this.email=email;
-        this.age=age;
-        this.password=password;
+    public User(String name, String address, String email, int age, String password) {
+        this.name = name;
+        this.address = address;
+        this.email = email;
+        this.age = age;
+        this.password = password;
     }
-    public static void create(ArrayList<User> userList)
+    private static boolean verifyName(String name)
     {
-        Scanner scanner= new Scanner(System.in);
+        int nameSize = name.split(" ").length;
+        return nameSize>1;
+    }
+    private static boolean verifyEmail(String email)
+    {
+        return email.contains("@")&&email.contains(".");
+    }
+    private static boolean verifyAddress(String address)
+    {
+        int addressSize=address.split(",").length;
+        return addressSize==4;
+    }
+    private static boolean verifyPassword(String password, String passwordVerify)
+    {
+        return password.equals(passwordVerify);
+    }
+    private static boolean verifyAll(User user, String passwordVerify) {
+        return verifyName(user.getName()) && verifyEmail(user.getEmail()) && verifyAddress(user.getAddress()) && verifyPassword(user.getPassword(), passwordVerify);
+    }
+
+    public static void create(ArrayList<User> userList) {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("\nAdd meg a felhasználó nevét:");
-        String name=scanner.nextLine();
+        String name = scanner.nextLine();
         System.out.print("\nAdd meg a címét(Irányítószám, település, utca, házszám): ");
-        String address=scanner.nextLine();
+        String address = scanner.nextLine();
         System.out.print("\nAdd meg az e-mail címét: ");
-        String email=scanner.nextLine();
+        String email = scanner.nextLine();
         System.out.print("\nAdd meg az életkorát: ");
-        int age=Integer.parseInt(scanner.nextLine());
-        System.out.print("\nAdd meg a jelszavát: ");
-        String password=scanner.nextLine();
-        System.out.print("\nJelszó megerősítés(min. 8 karakter): ");
-        String passwordVerify=scanner.nextLine();
-        if(Validator.verify(name,address,email,age,password,passwordVerify))
-        {
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.print("\nAdd meg a jelszavát (min. 8 karakter): ");
+        String password = scanner.nextLine();
+        System.out.print("\nJelszó megerősítés: ");
+        String passwordVerify = scanner.nextLine();
+        User tempUser = new User(name, address, email, age, password);
+        if (verifyAll(tempUser, passwordVerify)) {
             System.out.println("Felhasználó létrehozva!");
-            userList.add(new User(name,address,email,age,password));
-        }
-        else
-        {
+            userList.add(new User(name, address, email, age, password));
+        } else {
             System.out.println("Rossz bemeneti paraméterek!");
         }
     }
-    public static void listázás(ArrayList<User> userList)
-    {
+
+    public static void listázás(ArrayList<User> userList) {
         System.out.println("Felhasználó neve \t címe \t e-mail címe \t életkora");
-        for (User item : userList)
-        {
-            System.out.println(item.getName()+ "\t"+ item.getAddress()+ "\t"+  item.getEmail()+ "\t"+  item.getAge());
+        for (User item : userList) {
+            System.out.println(item.getName() + "\t" + item.getAddress() + "\t" + item.getEmail() + "\t" + item.getAge());
         }
     }
 
-    public static void modify(ArrayList<User> userList)
-    {
-        Scanner scanner= new Scanner(System.in);
+    public static void modify(ArrayList<User> userList) {
+        Scanner scanner = new Scanner(System.in);
         System.out.print("\nAdd meg, hogy melyik felhasználón akarsz módosítani!(név): ");
-        String input= scanner.nextLine();
-        boolean modified=false;
-        for (User item : userList)
-        {
-            if (item.getName()==input)
-            {
+        String input = scanner.nextLine();
+        boolean modified = false;
+        for (User item : userList) {
+            if (item.getName().equals(input)) {
                 System.out.print("\nAdd meg, hogy mit akarsz módosítani!(név, cím, e-mail, kor, [jelszó?]):");
-            }
+                switch (scanner.nextLine()) {
+                    case "név": {
+                        modified = true;
+                        break;
+                    }
+                    case "cím": {
+                        modified = true;
+                        break;
+                    }
+                    case "e-mail": {
+                        modified = true;
+                        break;
+                    }
+                    case "kor": {
+                        modified = true;
+                        break;
+                    }
+                    default: {
+                        System.out.println("Rossz módosító szó");
+                        break;
+                    }
 
+                }
+            }
         }
     }
-    public static void delete(ArrayList<User> userList)
-    {
-        Scanner scanner= new Scanner(System.in);
+
+    public static void delete(ArrayList<User> userList) {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Add meg, hogy melyik felhasználót akarod törölni(név)!: ");
-        String input= scanner.nextLine();
-        boolean deleted=false;
-        for (User item : userList)
-        {
-            if (item.getName()==input)
-            {
-                deleted=true;
+        String input = scanner.nextLine();
+        boolean deleted = false;
+        for (User item : userList) {
+            if (item.getName().equals(input)) {
+                deleted = true;
                 userList.remove(item);
                 break;
             }
         }
-        if (deleted)
-        {
+        if (deleted) {
             System.out.println("Felhasználó törölve.");
-        }
-        else
-        {
+        } else {
             System.out.println("Nincs ilyen felhasználó!");
         }
 
     }
 
-    public String getName() {
+    private String getName() {
         return name;
     }
 
-    public String getAddress() {
+    private String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    private void setAddress(String address) {
         this.address = address;
     }
 
-    public String getEmail() {
+    private String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         this.email = email;
     }
 
-    public int getAge() {
+    private int getAge() {
         return age;
     }
 
@@ -123,7 +153,7 @@ public class User {
         this.age = age;
     }
 
-    public String getPassword() {
+    private String getPassword() {
         return password;
     }
 
