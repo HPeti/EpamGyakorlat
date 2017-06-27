@@ -24,11 +24,7 @@ cycle:  while (true) {
                 }
                 case "2":
                 case "listázás": {
-                    System.out.println("Felhasználó neve \t címe \t e-mail címe \t életkora");
-                    for (User item : userList)
-                    {
-                        System.out.println(item.getName()+ "\t"+ item.getAddress()+ "\t"+  item.getEmail()+ "\t"+  item.getAge());
-                    }
+                    User.listázás(userList);
                     break;
                 }
                 case "3":

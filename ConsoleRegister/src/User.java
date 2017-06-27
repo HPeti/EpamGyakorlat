@@ -45,6 +45,15 @@ public class User {
             System.out.println("Rossz bemeneti paraméterek!");
         }
     }
+    public static void listázás(ArrayList<User> userList)
+    {
+        System.out.println("Felhasználó neve \t címe \t e-mail címe \t életkora");
+        for (User item : userList)
+        {
+            System.out.println(item.getName()+ "\t"+ item.getAddress()+ "\t"+  item.getEmail()+ "\t"+  item.getAge());
+        }
+    }
+
     public static void modify(ArrayList<User> userList)
     {
         Scanner scanner= new Scanner(System.in);
