@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * Created by Student on 6/26/2017.
- */
 public class User {
     private String name;
     private String address;
@@ -18,26 +15,8 @@ public class User {
         this.age = age;
         this.password = password;
     }
-    private static boolean verifyName(String name)
-    {
-        int nameSize = name.split(" ").length;
-        return nameSize>1;
-    }
-    private static boolean verifyEmail(String email)
-    {
-        return email.contains("@")&&email.contains(".");
-    }
-    private static boolean verifyAddress(String address)
-    {
-        int addressSize=address.split(",").length;
-        return addressSize==4;
-    }
-    private static boolean verifyPassword(String password, String passwordVerify)
-    {
-        return password.equals(passwordVerify);
-    }
     private static boolean verifyAll(User user, String passwordVerify) {
-        return verifyName(user.getName()) && verifyEmail(user.getEmail()) && verifyAddress(user.getAddress()) && verifyPassword(user.getPassword(), passwordVerify);
+        return Validate.verifyName(user.getName()) && Validate.verifyEmail(user.getEmail()) && Validate.verifyAddress(user.getAddress()) && Validate.verifyAge(user.age) && Validate.verifyPassword(user.getPassword(), passwordVerify);
     }
 
     public static void create(ArrayList<User> userList) {
@@ -74,25 +53,65 @@ public class User {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nAdd meg, hogy melyik felhasználón akarsz módosítani!(név): ");
         String input = scanner.nextLine();
-        boolean modified = false;
+        boolean modified=false;
         for (User item : userList) {
             if (item.getName().equals(input)) {
                 System.out.print("\nAdd meg, hogy mit akarsz módosítani!(név, cím, e-mail, kor, [jelszó?]):");
                 switch (scanner.nextLine()) {
                     case "név": {
-                        modified = true;
+                        System.out.println("Add meg az új nevet! (meglévő: "+item.getName()+")");
+                        String newName=scanner.nextLine();
+                        if (Validate.verifyName(newName))
+                        {
+                            item.setName(newName);
+                            modified=true;
+                        }
+                        else
+                        {
+                            System.out.println("Nem megfelelő név! (minimum 2 tagú legyen a név)");
+                        }
                         break;
                     }
                     case "cím": {
-                        modified = true;
+                        System.out.println("Add meg az új címet! (meglévő: "+item.getAddress()+")");
+                        String newAddress=scanner.nextLine();
+                        if (Validate.verifyAddress(newAddress))
+                        {
+                            item.setAddress(newAddress);
+                            modified=true;
+                        }
+                        else
+                        {
+                            System.out.println("Nem megfelelő cím! minimum 4 tagú legyen a cím vesszővel elválasztva)");
+                        }
                         break;
                     }
                     case "e-mail": {
-                        modified = true;
+                        System.out.println("Add meg az új e-mail címet! (meglévő: "+item.getEmail()+")");
+                        String newEmail=scanner.nextLine();
+                        if (Validate.verifyEmail(newEmail))
+                        {
+                            item.setEmail(newEmail);
+                            modified=true;
+                        }
+                        else
+                        {
+                            System.out.println("Nem megfelelő e-mail cím!");
+                        }
                         break;
                     }
                     case "kor": {
-                        modified = true;
+                        System.out.println("Add meg az új kort! (meglévő: "+item.getAge()+")");
+                        int newAge=Integer.parseInt(scanner.nextLine());
+                        if (Validate.verifyAge(newAge))
+                        {
+                            item.setAge(newAge);
+                            modified=true;
+                        }
+                        else
+                        {
+                            System.out.println("Nem megfelelő kor! (kor>0)");
+                        }
                         break;
                     }
                     default: {
@@ -129,6 +148,10 @@ public class User {
         return name;
     }
 
+    private void setName(String name)
+    {
+        this.name=name;
+    }
     private String getAddress() {
         return address;
     }

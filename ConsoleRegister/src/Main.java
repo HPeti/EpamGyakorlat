@@ -7,17 +7,18 @@ import java.util.Scanner;
 public class Main {
     public static void main(String [] args)
     {
-        //Todo: fájlból kiolvassa az adatbázist; modify elkészítése metódusban
+        //Todo: fájlból kiolvassa az adatbázist, make more salt
 
         ArrayList<User> userList= new ArrayList<User>();
         Scanner scanner= new Scanner(System.in);
-cycle:  while (true) {
+        boolean exit=false;
+        while (!exit)
+        {
             boolean createdUser=false;
-            System.out.println("Add meg a végrehajtandó parancsot! (regisztráció - 1, listázás - 2, módosítás - 3, törlés - 4, kilépés - 0");
+            System.out.println("Add meg a végrehajtandó parancsot! (regisztráció - 1, listázás - 2, módosítás - 3, törlés - 4, kilépés - 0)");
             String action = scanner.nextLine().toLowerCase();
 
             switch (action) {
-                case "1":
                 case "regisztráció": {
                     User.create(userList);
                     break;
@@ -29,6 +30,7 @@ cycle:  while (true) {
                 }
                 case "3":
                 case "módosítás": {
+                     User.modify(userList);
                     break;
                 }
                 case "4":
@@ -40,15 +42,12 @@ cycle:  while (true) {
                 case "kilépés":
                 {
                     System.out.println("A program kilép...");
-                    break cycle;
+                    exit=true;
+                    break ;
                 }
                 default: {
                     break;
                 }
-            }
-            if (createdUser)
-            {
-                break cycle;
             }
         }
     }
