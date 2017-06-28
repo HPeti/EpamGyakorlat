@@ -67,4 +67,5 @@ public abstract class Termek implements java.lang.Comparable<Termek>{
     public String getPrice() {
         return price;
     }
+
 }

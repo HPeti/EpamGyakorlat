@@ -58,10 +58,30 @@ public class Menü implements Etlap {
 
     @Override
     public int termékekSzáma(int fajta) {
-        int db=0;
-        switch (fajta)
-        {
+        int db = 0;
+        switch (fajta) {
+            case 1: {
+                for (Termek item: lista)
+                {
+//                    if ()
+//                    {}
+                }
+                break;
+            }
+            case 2: {
+                break;
+            }
+            case 3: {
+                break;
+            }
+            case 4:
+            {
+                break;
+            }
 
+            default: {
+                throw new IllegalArgumentException();
+            }
         }
         return db;
     }
@@ -72,9 +92,8 @@ public class Menü implements Etlap {
             BufferedWriter writer = new BufferedWriter((new FileWriter(fájlnév)));
             writer.write(lista.toString());
             writer.newLine();
-            for (Termek item : lista)
-            {
-                writer.write(item.getName()+", "+item.getAmount()+", "+item.getPrice()+" Ft");
+            for (Termek item : lista) {
+                writer.write(item.getName() + ", " + item.getAmount() + ", " + item.getPrice() + " Ft");
                 writer.newLine();
             }
         } catch (IOException e) {
