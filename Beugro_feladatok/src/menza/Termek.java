@@ -19,32 +19,11 @@ public abstract class Termek implements java.lang.Comparable<Termek>{
     }
 
     @Override
-    public int compareTo(@NotNull Termek o) {
-        int eredmeny = 0;
-        if (this.name.compareTo(o.name) < 0)
-        {
-            eredmeny = this.name.compareTo(o.name);
+    public int compareTo(Termek p) {
+        if (this.name.compareTo(p.name) == 0) {
+            return this.amount.compareTo(p.amount);
         }
-        else if (this.name.compareTo(o.name) == 0)
-        {
-            if (this.amount.compareTo(o.amount) < 0)
-            {
-                eredmeny = this.amount.compareTo(o.amount);
-            }
-            else if (this.amount.compareTo(o.amount) == 0)
-            {
-                eredmeny = 0;
-            }
-            else
-            {
-                eredmeny = this.amount.compareTo(o.amount);
-            }
-        }
-        else
-        {
-            eredmeny = this.name.compareTo(o.name);
-        }
-        return eredmeny;
+        return this.name.compareTo(p.name);
     }
 
     //    @Override
