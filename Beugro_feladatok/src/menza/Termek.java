@@ -33,7 +33,7 @@ public abstract class Termek implements java.lang.Comparable<Termek>{
     @Override
     public String toString()
     {
-       return this.getName()+", "+this.amount+", "+this.getPrice()+" Ft\n";
+       return this.getName()+", "+this.amount+", "+this.getPrice()+" Ft";
     }
     public String getName() {
         return name;

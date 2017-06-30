@@ -9,6 +9,7 @@ import étterem.Menü;
 import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -108,15 +109,20 @@ public class MenüTeszt {
         menuTEST.kiír(filePath);
 
         //8. feladat
+        ArrayList<Termek> needToRemove=new ArrayList<>();
         for (Termek termek : arrayList)
         {
             if ("adag".equals(termek.getAmount()))
             {
-                try {
-                    menuTEST.töröl(termek);
-                } catch (NincsIlyenTermékException e) {
-                    System.out.println("Nincs ilyen termék!");
-                }
+                needToRemove.add(termek);
+            }
+        }
+        for (Termek termek : needToRemove)
+        {
+            try {
+                menuTEST.töröl(termek);
+            } catch (NincsIlyenTermékException e) {
+                System.out.println("Nincs ilyen termék!");
             }
         }
         //9. feladat
