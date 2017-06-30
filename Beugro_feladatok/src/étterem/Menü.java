@@ -102,16 +102,21 @@ public class Menü implements Etlap {
         return db;
     }
 
+    public String getDatum()
+    {
+        return datum;
+    }
     @Override
     public void kiír(String fájlnév) {
         try {
             BufferedWriter writer = new BufferedWriter((new FileWriter(fájlnév)));
-            writer.write(lista.toString());
+            writer.write(this.toString());
             writer.newLine();
             for (Termek item : lista) {
                 writer.write(item.getName() + ", " + item.getAmount() + ", " + item.getPrice() + " Ft");
                 writer.newLine();
             }
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

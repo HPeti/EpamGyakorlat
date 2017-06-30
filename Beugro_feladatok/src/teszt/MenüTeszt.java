@@ -64,16 +64,13 @@ public class MenüTeszt {
             scanner.useDelimiter("[;/]");
             while (scanner.hasNext())
             {
-                String termekType=scanner.next();
-                System.out.print("\t"+termekType);
-                String name=scanner.next();
-                System.out.print("\t"+name);
-                String amount=scanner.next();
-                System.out.print("\t"+amount);
-                int price=scanner.nextInt();
-                System.out.print("\t"+price);
-                String type=scanner.next();
-                System.out.print("\t"+type);
+                String [] array= scanner.nextLine().split("[;/]");
+                String termekType = array[0];
+                String name = array[1] ;
+                String amount = array[2];
+                int price = Integer.parseInt(array[3]);
+                String type = array[4];
+                System.out.print(termekType +"\t" + name +"\t" + amount +"\t" + price +"\t" + type +"\n");
                 if (termekType.equals("étel"))
                 {
                     if ("leves".equals(type))
@@ -127,6 +124,7 @@ public class MenüTeszt {
         //10. feladat
         Menü [] menüs={menuTEST};
         ebedE(menüs);
+        scanner.close();
 
     }
 }
