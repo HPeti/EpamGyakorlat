@@ -1,5 +1,6 @@
 package étterem;
 
+import menza.Etel;
 import menza.Etlap;
 import menza.NincsIlyenTermékException;
 import menza.Termek;
@@ -52,7 +53,7 @@ public class Menü implements Etlap {
         if (lista.contains(termek)) {
             lista.remove(termek);
         } else {
-
+            throw new NincsIlyenTermékException();
         }
     }
 
@@ -63,8 +64,9 @@ public class Menü implements Etlap {
             case 1: {
                 for (Termek item: lista)
                 {
-//                    if ()
-//                    {}
+//                    if (item) {
+//
+//                    }
                 }
                 break;
             }
