@@ -49,7 +49,7 @@ public class MenüTeszt {
         {
             System.out.println("Add meg a kért mennyiséget! "+item.toString());
             int db=Integer.parseInt(scanner.nextLine());
-            összeg+=(Integer.parseInt(item.getPrice())*db);
+            összeg+=(item.getPrice()*db);
 
         }
         System.out.println("A megadott mennyiségekre vonatkozó összeg "+összeg+" Ft");
@@ -65,12 +65,18 @@ public class MenüTeszt {
             while (scanner.hasNext())
             {
                 String termekType=scanner.next();
+                System.out.print("\t"+termekType);
                 String name=scanner.next();
+                System.out.print("\t"+name);
                 String amount=scanner.next();
-                String price=scanner.next();
+                System.out.print("\t"+amount);
+                int price=scanner.nextInt();
+                System.out.print("\t"+price);
+                String type=scanner.next();
+                System.out.print("\t"+type);
                 if (termekType.equals("étel"))
                 {
-                    if ("leves".equals(scanner.next()))
+                    if ("leves".equals(type))
                     {
                         arrayList.add(new Etel(name,amount,price,true));
                     }
@@ -81,7 +87,7 @@ public class MenüTeszt {
                 }
                 else
                 {
-                    if ("alkoholos".equals(scanner.next()))
+                    if ("alkoholos".equals(type))
                     {
                         arrayList.add(new Ital(name,amount,price,true));
                     }

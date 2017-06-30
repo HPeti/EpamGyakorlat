@@ -10,8 +10,8 @@ import java.lang.*;
 public abstract class Termek implements java.lang.Comparable<Termek>{
     protected String name;
     protected String amount;
-    protected String price;
-    public Termek(String name, String amount, String price)
+    protected int price;
+    public Termek(String name, String amount, int price)
     {
         this.name=name;
         this.amount=amount;
@@ -43,7 +43,7 @@ public abstract class Termek implements java.lang.Comparable<Termek>{
         return amount;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 

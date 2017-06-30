@@ -5,7 +5,7 @@ package menza;
  */
 public class Etel extends Termek {
     private boolean type;
-    public Etel(String name, String amount, String price, boolean type) {
+    public Etel(String name, String amount, int price, boolean type) {
         super(name, amount, price);
         this.type=type;
     }
