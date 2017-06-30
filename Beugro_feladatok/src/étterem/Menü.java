@@ -1,9 +1,6 @@
 package étterem;
 
-import menza.Etel;
-import menza.Etlap;
-import menza.NincsIlyenTermékException;
-import menza.Termek;
+import menza.*;
 
 import javax.sound.midi.Soundbank;
 import java.io.BufferedWriter;
@@ -13,9 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-/**
- * Created by Student on 6/28/2017.
- */
 public class Menü implements Etlap {
     private String datum;
     ArrayList<Termek> lista = new ArrayList<Termek>();
@@ -60,29 +54,49 @@ public class Menü implements Etlap {
     @Override
     public int termékekSzáma(int fajta) {
         int db = 0;
-        switch (fajta) {
-            case 1: {
-                for (Termek item: lista)
-                {
-//                    if (item) {
-//
-//                    }
+        for (Termek item : lista) {
+            switch (fajta) {
+                case 1: {
+                    if (item instanceof Etel) {
+                        Etel e = (Etel) item;
+                        if (e.getType()) {
+                            db++;
+                        }
+                    }
+                    break;
                 }
-                break;
-            }
-            case 2: {
-                break;
-            }
-            case 3: {
-                break;
-            }
-            case 4:
-            {
-                break;
-            }
+                case 2: {
+                    if (item instanceof Etel) {
+                        Etel e = (Etel) item;
+                        if (!e.getType()) {
+                            db++;
+                        }
+                    }
+                    break;
+                }
+                case 3: {
+                    if (item instanceof Ital) {
+                        Ital e = (Ital) item;
+                        if (e.getType()) {
+                            db++;
+                        }
+                    }
 
-            default: {
-                throw new IllegalArgumentException();
+                    break;
+                }
+                case 4: {
+                    if (item instanceof Ital) {
+                        Ital e = (Ital) item;
+                        if (!e.getType()) {
+                            db++;
+                        }
+                    }
+                    break;
+                }
+
+                default: {
+                    throw new IllegalArgumentException();
+                }
             }
         }
         return db;

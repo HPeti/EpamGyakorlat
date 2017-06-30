@@ -1,10 +1,12 @@
 package teszt;
 
 import menza.Etel;
+import menza.Ital;
 import menza.NincsIlyenTermékException;
 import menza.Termek;
 import étterem.Menü;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.DateFormat;
@@ -14,6 +16,32 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class MenüTeszt {
+    private static void ebedE(Menü [] menüs)
+    {
+         for (Menü item : menüs)
+         {
+             boolean leves=false;
+             boolean főétel= false;
+             boolean italMentes= false;
+             if (item.termékekSzáma(1)>0)
+             {
+                 leves =true;
+             }
+             if (item.termékekSzáma(2)>0)
+             {
+                 főétel=true;
+             }
+             if (item.termékekSzáma(4)>0)
+             {
+                 italMentes=true;
+             }
+             if (leves&& főétel&& italMentes)
+             {
+                 System.out.println(item.toString());
+             }
+         }
+
+    }
     private static void outPrice(ArrayList<Termek> termeklista)
     {   int összeg=0;
         Scanner scanner= new Scanner(System.in);
@@ -29,11 +57,10 @@ public class MenüTeszt {
     public static void main(String [] args)
     {
         System.out.println("");
-        Scanner scanner=new Scanner(System.in);
-        String filePath= scanner.nextLine();
+        Scanner scanner=null;
         ArrayList<Termek> arrayList= new ArrayList<>();
         try {
-            scanner = new Scanner(new File(filePath));
+            scanner = new Scanner(new File(args[0]));
             scanner.useDelimiter("[;/]");
             while (scanner.hasNext())
             {
@@ -45,22 +72,22 @@ public class MenüTeszt {
                 {
                     if ("leves".equals(scanner.next()))
                     {
-                        arrayList.add(new Etel(name,amount,price,1));
+                        arrayList.add(new Etel(name,amount,price,true));
                     }
                     else
                     {
-                        arrayList.add(new Etel(name,amount,price,2));
+                        arrayList.add(new Etel(name,amount,price,false));
                     }
                 }
                 else
                 {
                     if ("alkoholos".equals(scanner.next()))
                     {
-                        arrayList.add(new Etel(name,amount,price,3));
+                        arrayList.add(new Ital(name,amount,price,true));
                     }
                     else
                     {
-                        arrayList.add(new Etel(name,amount,price,4));
+                        arrayList.add(new Ital(name,amount,price,false));
                     }
                 }
             }
@@ -72,10 +99,10 @@ public class MenüTeszt {
         System.out.println("Adj meg egy fájlnevet!");
         DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
         Date date = new Date();
-        Menü menü= new Menü(arrayList,dateFormat.format(date));
+        Menü menuTEST= new Menü(arrayList,dateFormat.format(date));
         scanner=new Scanner(System.in);
-        filePath=scanner.nextLine();
-        menü.kiír(filePath);
+        String filePath=scanner.nextLine();
+        menuTEST.kiír(filePath);
 
         //8. feladat
         for (Termek termek : arrayList)
@@ -83,7 +110,7 @@ public class MenüTeszt {
             if ("adag".equals(termek.getAmount()))
             {
                 try {
-                    menü.töröl(termek);
+                    menuTEST.töröl(termek);
                 } catch (NincsIlyenTermékException e) {
                     System.out.println("Nincs ilyen termék!");
                 }
@@ -91,5 +118,9 @@ public class MenüTeszt {
         }
         //9. feladat
         outPrice(arrayList);
+        //10. feladat
+        Menü [] menüs={menuTEST};
+        ebedE(menüs);
+
     }
 }
